@@ -112,14 +112,4 @@ public class Page {
                 ? contentUa
                 : contentEn;
     }
-
-    public static String getOpenText(Language language) {
-        return language == Language.UA
-                ? "Перейти →"
-                : "Open →";
-    }
-
-    public static String getOpenTextShortened() {
-        return ">";
-    }
 }

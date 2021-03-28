@@ -115,8 +115,8 @@ public class PageServiceImpl implements PageService {
                     "<a href=\"%s\">%s</a>",
                     childPage.getCode(language),
                     page.getContainerType() == ContainerType.GRID
-                            ? Page.getOpenText(language)
-                            : Page.getOpenTextShortened()
+                            ? StaticTextManager.getOpenText(language)
+                            : StaticTextManager.getOpenTextShortened()
                     )
             );
             builder.append("</div>");
