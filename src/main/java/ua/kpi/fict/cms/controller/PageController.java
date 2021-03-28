@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ua.kpi.fict.cms.dto.response.PageDto;
 import ua.kpi.fict.cms.entity.enums.Language;
 import ua.kpi.fict.cms.service.PageService;
@@ -63,5 +64,10 @@ public class PageController {
     public String getUaRootPage(Model model) {
         log.info("handling ua root page request");
         return getUaPage("root", model);
+    }
+
+    @GetMapping("favicon.ico")
+    @ResponseBody
+    void returnNoFavicon() {
     }
 }

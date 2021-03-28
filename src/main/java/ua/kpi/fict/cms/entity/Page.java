@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import org.hibernate.annotations.NaturalId;
+
 import ua.kpi.fict.cms.entity.enums.ContainerType;
 import ua.kpi.fict.cms.entity.enums.Language;
 import ua.kpi.fict.cms.entity.enums.OrderType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "pages")
-public class Page {
+public class Page implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pages_generator")
@@ -29,6 +32,7 @@ public class Page {
     /*
      * unique code of page
      */
+    @NaturalId
     @Column(unique = true, nullable = false)
     private String code;
     /*
@@ -64,7 +68,7 @@ public class Page {
     private Date updateDate;
 
     @ManyToOne
-    @JoinColumn(name = "parent_code")
+    @JoinColumn(name = "parent_code", referencedColumnName = "code")
     private Page parentPage;
 
     @OneToMany(mappedBy = "parentPage")
@@ -86,7 +90,7 @@ public class Page {
     private ContainerType containerType;
 
     @ManyToOne
-    @JoinColumn(name = "alias_of")
+    @JoinColumn(name = "alias_of", referencedColumnName = "code")
     private Page aliasOf;
 
     public String getCode(Language language) {
