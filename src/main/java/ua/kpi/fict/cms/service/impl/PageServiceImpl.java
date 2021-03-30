@@ -55,8 +55,9 @@ public class PageServiceImpl implements PageService {
 
     private String buildMeta(Page page, Language language) {
 
-        return String.format("<title>%s</title>" +
-                        "     <meta name=\"description\" content=\"%s\">",
+        return String.format(
+                "        <title>%s</title>" +
+                        "<meta name=\"description\" content=\"%s\">",
                 page.getCaption(language), page.getIntro(language)
         );
     }
@@ -71,9 +72,15 @@ public class PageServiceImpl implements PageService {
         }
         String parentCode = page.getParentPage().getCode(language);
 
-        return String.format("<a class=\"back-link\" href=\"%s\">← %s</a>",
-                parentCode.equals("root") ? "/" : parentCode.equals("/en/root") ? "/en" : parentCode,
-                page.getParentPage().getCaption(language));
+        return String.format(
+                "<a class=\"back-link\" href=\"%s\">← %s</a>",
+                parentCode.equals("root")
+                        ? "/"
+                        : parentCode.equals("/en/root")
+                        ? "/en"
+                        : parentCode,
+                page.getParentPage().getCaption(language)
+        );
     }
 
     private String buildContent(Page page, Language language) {
@@ -93,8 +100,10 @@ public class PageServiceImpl implements PageService {
             return "";
         }
         StringBuilder builder = new StringBuilder();
-        builder.append(String.format("<div class=\"child-container child-container-%s\">",
-                page.getContainerType().toString().toLowerCase()));
+        builder.append(String.format(
+                "<div class=\"child-container child-container-%s\">",
+                page.getContainerType().toString().toLowerCase())
+        );
 
         List<Page> childPages = new ArrayList<>(page.getChildPages());
         OrderType orderType = page.getOrderType() != null ? page.getOrderType() : OrderType.DEFAULT;
@@ -105,19 +114,26 @@ public class PageServiceImpl implements PageService {
                     "<div class=\"child-reference %s\">",
                     page.getContainerType() == ContainerType.GRID
                             ? ""
-                            : "child-reference-list"
-                    )
+                            : "child-reference-list")
             );
-            builder.append(String.format("<img class=\"img-small\" src=\"%s\" />", childPage.getImageUrl()));
-            builder.append(String.format("<h3>%s</h3>", childPage.getCaption(language)));
-            builder.append(String.format("<p>%s</p>", childPage.getIntro(language)));
+            builder.append(String.format(
+                    "<img class=\"img-small\" src=\"%s\" />",
+                    childPage.getImageUrl())
+            );
+            builder.append(String.format(
+                    "<h3>%s</h3>",
+                    childPage.getCaption(language))
+            );
+            builder.append(String.format(
+                    "<p>%s</p>",
+                    childPage.getIntro(language))
+            );
             builder.append(String.format(
                     "<a href=\"%s\">%s</a>",
                     childPage.getCode(language),
                     page.getContainerType() == ContainerType.GRID
                             ? StaticTextManager.getOpenText(language)
-                            : StaticTextManager.getOpenTextShortened()
-                    )
+                            : StaticTextManager.getOpenTextShortened())
             );
             builder.append("</div>");
         }
@@ -127,12 +143,16 @@ public class PageServiceImpl implements PageService {
     }
 
     private String buildHeader(Language language) {
-        return String.format("<h2>%s</h2>", StaticTextManager.getHeaderText(language));
+        return String.format(
+                "<h2>%s</h2>",
+                StaticTextManager.getHeaderText(language)
+        );
     }
 
     private String buildFooter(Language language) {
-        return String.format("<h3>%s</h3>"
-                        + "   <h5>%s</h5>",
+        return String.format(
+                "          <h3>%s</h3>"
+                        + "<h5>%s</h5>",
                 StaticTextManager.getFooterSignText(language),
                 StaticTextManager.getFooterCopyrightsText(language)
         );

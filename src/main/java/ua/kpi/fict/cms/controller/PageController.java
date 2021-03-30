@@ -66,7 +66,7 @@ public class PageController {
         return getUaPage("root", model);
     }
 
-    @GetMapping("favicon.ico")
+    @GetMapping(value = "favicon.ico")
     @ResponseBody
     void returnNoFavicon() {
     }
